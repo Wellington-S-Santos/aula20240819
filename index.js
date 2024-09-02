@@ -129,7 +129,7 @@ app.get('/imc', (req, res, next) => {
         }
 
         // Converte os parâmetros para números
-        const altnum = parseFloat(altura);
+        const altnum = parseFloat(altura)/100;
         const pesnum = parseFloat(peso);
 
         // Verifica se os parâmetros são números válidos
@@ -137,38 +137,25 @@ app.get('/imc', (req, res, next) => {
             throw new Error('Parâmetros inválidos!');
         }
 
-        let result;
+        
         let imc1;
         imc1= pesnum/(altnum * altnum);
 
-        const imcnum= parseFloat(imc1);
-
-
-        // Realiza a operação baseada no parâmetro 'operation'
-        switch (imcnum) {
-            case imcnum < 16.9:
-                result =`${imcnum} ": Muito abaixo do peso."`;
-                break;
-            case (imcnum >= 17 ) && (imcnum <= 18.4) :
-                result = `${imcnum}": Abaixo do peso."`;
-                break;
-            case (imcnum >= 18.5) && (imcnum <= 24.9) :
-                result =`${imcnum} ": Peso normal."`;
-                break;
-            case (imcnum >=25) && (imcnum <=29.9):
-                result = `${imcnum} ": Acima do peso"`;
-                break
-            case (imcnum >=30) && (imcnum <=34.9):
-                    result = `${imcnum} ": Obesidade grau I."`;
-                break;
-            case (imcnum >=35) && (imcnum <=40):
-                    result = `${imcnum} ": Obesidade grau II."`;
-                break;
-            case imcnum > 40:
-                    result = `${imcnum}": Obesidade grau III."`;
-                break;
-            default:
-                throw new Error('Operação inválida!');
+        let result;
+        if (imc1 < 16.9) {
+            result = `${imc1.toFixed(2)}: Muito abaixo do peso.`;
+        } else if (imc1 >= 17 && imc1 <= 18.4) {
+            result = `${imc.toFixed(2)}: Abaixo do peso.`;
+        } else if (imc1 >= 18.5 && imc1 <= 24.9) {
+            result = `${imc1.toFixed(2)}: Peso normal.`;
+        } else if (imc1 >= 25 && imc1 <= 29.9) {
+            result = `${imc1.toFixed(2)}: Acima do peso.`;
+        } else if (imc1 >= 30 && imc1 <= 34.9) {
+            result = `${imc1.toFixed(2)}: Obesidade grau I.`;
+        } else if (imc1 >= 35 && imc1 <= 40) {
+            result = `${imc1.toFixed(2)}: Obesidade grau II.`;
+        } else {
+            result = `${imc1.toFixed(2)}: Obesidade grau III.`;
         }
 
         res.json({ result });
