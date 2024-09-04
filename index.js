@@ -89,20 +89,21 @@ app.get('/calculate', (req, res, next) => {
 
         // Realiza a operação baseada no parâmetro 'operation'
         switch (decodedOperation) {
-            case '+':
+            case 'add':
                 result = number1 + number2;
                 break;
-            case '-':
+            case 'subtract':
                 result = number1 - number2;
                 break;
-            case 'x':
+            case 'multiply':
                 result = number1 * number2;
                 break;
-            case '/':
+            case 'divide':
                 if (number2 === 0) {
                     throw new Error('Divisão por zero não é permitida!');
                 }
                 result = number1 / number2;
+                break
             case 'par':
                 result = `${number1} é ${number1 % 2 === 0 ? "par" : "impar"} e ${number2} é ${number2 % 2 === 0 ? "par" : "impar"}`;
   
@@ -145,7 +146,7 @@ app.get('/imc', (req, res, next) => {
         if (imc1 < 16.9) {
             result = `${imc1.toFixed(2)}: Muito abaixo do peso.`;
         } else if (imc1 >= 17 && imc1 <= 18.4) {
-            result = `${imc.toFixed(2)}: Abaixo do peso.`;
+            result = `${imc1.toFixed(2)}: Abaixo do peso.`;
         } else if (imc1 >= 18.5 && imc1 <= 24.9) {
             result = `${imc1.toFixed(2)}: Peso normal.`;
         } else if (imc1 >= 25 && imc1 <= 29.9) {
